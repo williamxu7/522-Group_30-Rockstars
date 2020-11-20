@@ -1,5 +1,5 @@
 # Strathcona County Housing Price Predictor
-* author: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
+* authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 
 ## Introduction
 
