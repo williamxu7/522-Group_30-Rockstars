@@ -4,7 +4,7 @@ output:
   html_document: default
 ---
 
-###522 Team Work Contract - group 30###
+### 522 Team Work Contract - group 30 ###
 
 **Culture**
 
