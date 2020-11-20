@@ -14,6 +14,7 @@ output:
 -  Help team members to improve their skills and knowledge
 -  Help each other out when we get stuck in project tasks
 
+
 **Expectations**
 
 - Rotate who takes notes for meetings, and post meeting minutes in   the repo issues section
