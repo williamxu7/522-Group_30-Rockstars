@@ -1,4 +1,4 @@
-# author: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
+# authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 # date: 2020-11-20
 
 """Downloads data csv data from the web to a local filepath as a csv.
