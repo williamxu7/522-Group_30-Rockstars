@@ -30,6 +30,8 @@ python src/download_data.py --url=https://data.strathcona.ca/api/views/c9fr-ivqf
 ## Dependencies
 - Python 3.8.6 and Python packages:
    - altair==4.1.0
+   - altair_data_server==0.4.1
+   - altair_saver==0.5.0
    - docopt==0.6.2
    - matplotlib==3.3.3
    - numpy==1.19.4
