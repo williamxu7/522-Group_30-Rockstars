@@ -17,7 +17,7 @@ When we have the final model chosen, we will fit on the train data set, and eval
 
 Our results will be made available in a R Markdown File. Components will include the predicted regression equation and a table of metrics related to the accuracy of our models.
 
-We have conducted some preliminary exploratory data analysis, and it can be found here[here](src/housing_pred_eda.ipynb).
+We have conducted some preliminary exploratory data analysis, and it can be found [here](src/housing_pred_eda.ipynb).
 
 
 ## Usage
