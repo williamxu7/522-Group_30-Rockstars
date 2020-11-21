@@ -21,7 +21,7 @@ We have conducted some preliminary exploratory data analysis, and it can be foun
 
 
 ## Usage
-To replicate the analysis, clone this GitHub repository, install the [dependencies] (#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
+To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
 
 ```
 python src/download_data.py --url=https://data.strathcona.ca/api/views/c9fr-ivqf/rows.csv?accessType=DOWNLOAD --out_file=data/2018_Property_Tax_Assessment.csv
