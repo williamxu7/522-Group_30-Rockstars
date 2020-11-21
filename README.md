@@ -5,7 +5,7 @@ A data analysis project on Property Assessment Prediction for Single-Family Dwel
 
 ## Introduction
 
-The data set used in this project is 2020 Property Tax Assessment from the Open Data portal of Strathcona County, Alberta. It is based on a property valuation date as of July 1, 2017 and property condition date as of December 31, 2017. Each row in the data set represents a property in Strathcona County, and each column represents an attribute of that property (e.g., building size, year built, does it have a fireplace, etc.)
+The data set used in this project is 2018 Property Tax Assessment from the Open Data portal of Strathcona County, Alberta. It is based on a property valuation date as of July 1, 2017 and property condition date as of December 31, 2017. Each row in the data set represents a property in Strathcona County, and each column represents an attribute of that property (e.g., building size, year built, does it have a fireplace, etc.)
 
 For this project we are trying to answer the question: can we build a prediction model of single-family dwelling property assessment values in Strathcona County based on property features? It is important because it can give those who are interested in buying or selling single family dwellings in that area a sense of the value of houses.
 
