@@ -24,7 +24,20 @@ We have conducted some preliminary exploratory data analysis, and it can be foun
 To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
 
 ```
+# download data
 python src/download_data.py --url=https://data.strathcona.ca/api/views/c9fr-ivqf/rows.csv?accessType=DOWNLOAD --out_file=data/2018_Property_Tax_Assessment.csv
+
+# preprocess data
+python src/data_cleaning.py --in_file=data/2018_Property_Tax_Assessment.csv --out_file1=data/2018_Property_Tax_Assessment_clean.csv --out_file2=data/2018_Property_Tax_Assessment_clean_train.csv --out_file3=data/2018_Property_Tax_Assessment_clean_test.csv
+
+# create exploratory data analysis figure and write to file 
+python src/eda_script.py --in_file1=data/2018_Property_Tax_Assessment_clean.csv --in_file2=data/2018_Property_Tax_Assessment_clean_train.csv --output_file=results/
+
+# tune and test model
+python src/housing_assessment_prediction.py --in_file1=data/2018_Property_Tax_Assessment_clean_train.csv --in_file2=data/2018_Property_Tax_Assessment_clean_test.csv --out_file1=results/validation_table.csv --out_file2=results/test_score.csv --out_file3=results/coefficients_table.csv
+
+# render final model
+
 ```
 
 ## Dependencies
