@@ -65,121 +65,47 @@ def main(in_file1, in_file2, output_file):
 
 
     # Violin plots of binary features
-    garage =(alt.Chart(train_df).transform_density(
-        'ASSESSMENT',
-        as_=['ASSESSMENT', 'density'],
-        extent=[0, 1_600_000],
-        groupby=['GARAGE']
-    ).mark_area(orient='horizontal').encode(
-        y=alt.Y('ASSESSMENT:Q'),
-        color=alt.Color('GARAGE:N',legend=None),
-        x=alt.X(
-            'density:Q',
-            stack='center',
-            impute=None,
-            title=None,
-            axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
-        ),
-        column=alt.Column(
-            'GARAGE:N',
-            header=alt.Header(
-                titleOrient='bottom',
-                labelOrient='bottom',
-                labelPadding=0,
-            ),
-        )
-    ).properties(
-        width=100
-    ))
-    
-    fireplace = (alt.Chart(train_df).transform_density(
-        'ASSESSMENT',
-        as_=['ASSESSMENT', 'density'],
-        extent=[0, 1_600_000],
-        groupby=['FIREPLACE']
-    ).mark_area(orient='horizontal').encode(
-        y=alt.Y('ASSESSMENT:Q', title=''),
-        color=alt.Color('FIREPLACE:N',legend=None),
-        x=alt.X(
-            'density:Q',
-            stack='center',
-            impute=None,
-            title=None,
-            axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
-        ),
-        column=alt.Column(
-            'FIREPLACE:N',
-            header=alt.Header(
-                titleOrient='bottom',
-                labelOrient='bottom',
-                labelPadding=0,
-            ),
-        )
-    ).properties(
-        width=100
-    ))
-    
-    
-    basement = (alt.Chart(train_df).transform_density(
-        'ASSESSMENT',
-        as_=['ASSESSMENT', 'density'],
-        extent=[0, 1_600_000],
-        groupby=['BASEMENT']
-    ).mark_area(orient='horizontal').encode(
-        y=alt.Y('ASSESSMENT:Q', title=''),
-        color=alt.Color('BASEMENT:N',legend=None),
-        x=alt.X(
-            'density:Q',
-            stack='center',
-            impute=None,
-            title=None,
-            axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
-        ),
-        column=alt.Column(
-            'BASEMENT:N',
-            header=alt.Header(
-                titleOrient='bottom',
-                labelOrient='bottom',
-                labelPadding=0,
-            ),
-        )
-    ).properties(
-        width=100
-    ))
-    
-    basementdevl = (alt.Chart(train_df).transform_density(
-        'ASSESSMENT',
-        as_=['ASSESSMENT', 'density'],
-        extent=[0, 1_600_000],
-        groupby=['BSMTDEVL']
-    ).mark_area(orient='horizontal').encode(
-        y=alt.Y('ASSESSMENT:Q', title=''),
-        color=alt.Color('BSMTDEVL:N',legend=None),
-        x=alt.X(
-            'density:Q',
-            stack='center',
-            impute=None,
-            title=None,
-            axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
-        ),
-        column=alt.Column(
-            'BSMTDEVL:N',
-            header=alt.Header(
-                titleOrient='bottom',
-                labelOrient='bottom',
-                labelPadding=0,
-            ),
-        )
-    ).properties(
-        width=100
-    ))
-    
-    violinplot = alt.hconcat(garage, fireplace, basement, basementdevl).configure_facet(
+    plot_1 = plot(train_df, 'GARAGE')
+    plot_2 = plot(train_df, 'FIREPLACE')
+    plot_3 = plot(train_df, 'BASEMENT')
+    plot_4 = plot(train_df, 'BSMTDEVL')
+
+    violinplot = alt.hconcat(plot_1, plot_2, plot_3, plot_4).configure_facet(
         spacing=0
     ).configure_view(
         stroke=None
     )
     violinplot.save(output_file + "violinplot.svg")
+    
+def plot(train_df, feature):
+    
+    plot = (alt.Chart(train_df).transform_density(
+        'ASSESSMENT',
+        as_=['ASSESSMENT', 'density'],
+        extent=[0, 1_600_000],
+        groupby=[feature]
+    ).mark_area(orient='horizontal').encode(
+        y=alt.Y('ASSESSMENT:Q'),
+        color=alt.Color(feature,legend=None),
+        x=alt.X(
+            'density:Q',
+            stack='center',
+            impute=None,
+            title=None,
+            axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
+        ),
+        column=alt.Column(
+            feature,
+            header=alt.Header(
+                titleOrient='bottom',
+                labelOrient='bottom',
+                labelPadding=0,
+            ),
+        )
+    ).properties(
+        width=100
+    ))
+    return plot
 
 if __name__ == "__main__":
     main(opt["--in_file1"], opt["--in_file2"], opt["--output_file"])
