@@ -20,7 +20,7 @@ Our results will be made available in a R Markdown File. Components will include
 We have conducted some preliminary exploratory data analysis, and it can be found [here](src/housing_pred_eda.ipynb).
 
 ## Report
-The final report can be found [here]().
+The final report can be found [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/522-Group_30-Rockstars/main/doc/strathcona_housing_price_predict_report.html).
 
 ## Usage
 To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
