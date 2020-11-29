@@ -54,6 +54,7 @@ Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')
    - vega-datasets==0.8.0
 - R version 4.0.2 and R packages:
   - knitr==1.29
+  - tidyverse==1.3.0
 
 ## License
 The Strathcona County Housing Price Predictor materials here are licensed under the Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA). If re-using/re-mixing please provide attribution and link to this webpage.
