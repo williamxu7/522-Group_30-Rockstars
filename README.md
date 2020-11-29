@@ -3,21 +3,12 @@
 
 A data analysis project on Property Assessment Prediction for Single-Family Dwellings in Strathcona County for DSCI 522 (Data Science Workflows); a course in the Master of Data Science program at the University of British Columbia.
 
-## Introduction
+## About
 
-The data set used in this project is 2018 Property Tax Assessment from the Open Data portal of Strathcona County, Alberta. It is based on a property valuation date as of July 1, 2017 and property condition date as of December 31, 2017. Each row in the data set represents a property in Strathcona County, and each column represents an attribute of that property (e.g., building size, year built, does it have a fireplace, etc.)
+Here we attempt to build a classification model using the k-nearest neighbours algorithm which can use breast cancer tumour image measurements to predict whether a newly discovered breast cancer tumour is benign (i.e., is not harmful and does not require treatment) or malignant (i.e., is harmful and requires treatment intervention). Our final classifier performed fairly well on an unseen test data set, with Cohen’s Kappa score of 0.9 and an overall accuracy calculated to be 0.97. On the 142 test data cases, it correctly predicted 138. However it incorrectly predicted 4 cases, and importantly these cases were false negatives; predicting that a tumour is benign when in fact it is malignant. These kind of incorrect predictions could have a severly negative impact on a patients health outcome, thus we recommend continuing study to improve this prediction model before it is put into production in the clinic.
 
-For this project we are trying to answer the question: can we build a prediction model of single-family dwelling property assessment values in Strathcona County based on property features? It is important because it can give those who are interested in buying or selling single family dwellings in that area a sense of the value of houses.
-
-To answer the predictive question, we are planning to build a number of predictive regression model candidates and choose the model with the best accuracy. We plan to partition the data with train test split (90%:10%). Our exploratory data analysis will include creating a heatmap table to summarize the correlation of features and our target, as well as scatterplots for individual features and the target. 
-
-Our data pipeline modelling will use a ColumnTransformer to apply different transformations to different feature data types. For example, some of our variables take on values of “Yes/No” and need to be converted to 0’s and 1’s. We also have a categorical feature that will need to be converted to a set of dummy variable features via One-Hot-Encoder. Given that our target (property assessment value) is continuous, there are a couple of modelling approaches. This includes modelling via multi-variable linear regression and modeling via the Ridge method. In Ridge, we will do a hyperparameter optimization to find an alpha that works best for prediction accuracy and control the fundamental tradeoff in our model. Next, we will compare linear regression with Ridge, analyze results, and select a model with better validation accuracy. 
-
-When we have the final model chosen, we will fit on the train data set, and evaluate performance with different loss-function metrics such as R2 and MAPE scores, mean squared error (MSE), root mean squared error (RMSE). The values will be saved in a dataframe and presented in our final report.
-
-Our results will be made available in a R Markdown File. Components will include the predicted regression equation and a table of metrics related to the accuracy of our models.
-
-We have conducted some preliminary exploratory data analysis, and it can be found [here](src/housing_pred_eda.ipynb).
+The data set used in our project are [2018 property assessments](https://data.strathcona.ca/Housing-Buildings/2018-Property-Tax-Assessment/6wvk-j7e9), restricted strictly for single-family dwellings in Strathcona County, Alberta. Each row in the data set represents a distinct property within Strathcona Counties borders, and each column represents a potential explanatory variable, along with our dependent variable (property assessment value). Our set of explanatory variables is composed of continuous, categorical, and binary data types, these being: Building Size, Building Description, Age of Property, Year Built, Presence of Basement, Presence of Furnished Basement, Presence of Garage, Presence of Fireplace, and Longitude and Latitude. Altogether our dataset is composed of 28,450 observations.
+To get an accurate assessment of our predictive model, we build a training model using 90% of our observations, and reserve the remaining 10% as test data to assess goodness of fit.
 
 ## Report
 The final report can be found [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/522-Group_30-Rockstars/main/doc/strathcona_housing_price_predict_report.html).
@@ -61,5 +52,4 @@ Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')
 ## License
 The Strathcona County Housing Price Predictor materials here are licensed under the Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA). If re-using/re-mixing please provide attribution and link to this webpage.
 
-## References
-“2018 Property Tax Assessment”. Strathcona County’s Open Data Portal. <https://data.strathcona.ca/Housing-Buildings/2018-Property-Tax-Assessment/6wvk-j7e9>
+# References
