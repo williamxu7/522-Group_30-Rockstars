@@ -8,17 +8,9 @@ output:
     keep_md: true
     toc: true
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(reticulate)
-library(tidyverse)
-library(knitr)
-```
 
-```{python libraries, include = FALSE}
-import pandas as pd
-import altair as alt
-```
+
+
 
 # Summary
 
@@ -43,35 +35,57 @@ Our data pipeline modelling involved several steps. First, we identified our fea
 Our dependent variable - property assessment value - exhibits right skew. Most property assessment values are centered between $400,000 and $500,000. While almost no property is worth less than $300,000, there are a number of outlier properties that exceed $1,000,000 and approach up to $2,000,000.
 
 
-```{r barchart-plot, echo=FALSE, fig.cap="Figure 1. Assessment value frequency distribution", out.height="100%", out.width="100%"}
-knitr::include_graphics("../results/barchart.png")
-```
+<div class="figure">
+<img src="../results/barchart.png" alt="Figure 1. Assessment value frequency distribution" width="100%" height="100%" />
+<p class="caption">Figure 1. Assessment value frequency distribution</p>
+</div>
 
 A quick glance of our data found a small number of observations with missing values for particular features. These observations were later dropped from our model. 
 
-```{python data, echo = FALSE}
-df = pd.read_csv("../data/2018_Property_Tax_Assessment_clean_train.csv")
-df.info()
+
+```
+## <class 'pandas.core.frame.DataFrame'>
+## RangeIndex: 25605 entries, 0 to 25604
+## Data columns (total 12 columns):
+##  #   Column      Non-Null Count  Dtype  
+## ---  ------      --------------  -----  
+##  0   YEAR_BUILT  25597 non-null  float64
+##  1   ASSESSCLAS  25605 non-null  object 
+##  2   BLDG_DESC   25597 non-null  object 
+##  3   BLDG_FEET   25605 non-null  int64  
+##  4   GARAGE      25605 non-null  object 
+##  5   FIREPLACE   25605 non-null  object 
+##  6   BASEMENT    25605 non-null  object 
+##  7   BSMTDEVL    25605 non-null  object 
+##  8   ASSESSMENT  25605 non-null  int64  
+##  9   LATITUDE    25605 non-null  float64
+##  10  LONGITUDE   25605 non-null  float64
+##  11  AGE         25597 non-null  float64
+## dtypes: float64(4), int64(2), object(6)
+## memory usage: 2.3+ MB
 ```
 
 The correlation heat map -restricted to only our numeric features - shows that the property assessment value has its strongest correlation with square footage. The second most correlated feature to property assessment value is age of the property which can be reflected from the year built feature. 
-```{r correlation-heat-map, echo=FALSE, fig.cap="Figure 2. Housing features correlation heatmap", out.height="100%", out.width="50%"}
-knitr::include_graphics("../results/corrmat.png")
-```
+<div class="figure">
+<img src="../results/corrmat.png" alt="Figure 2. Housing features correlation heatmap" width="50%" height="100%" />
+<p class="caption">Figure 2. Housing features correlation heatmap</p>
+</div>
 
 A closer look at a scatter plot of property assessment values and square footage shows a clear positive association. However, its apparent that the tightness of this relationship loosens as property assessment values become increasingly large. 
 
 
-```{r scatter-plot, echo=FALSE, fig.cap="Figure 3. Building size vs assessment value scatterplot", out.height="100%", out.width="50%"}
-knitr::include_graphics("../results/scatter.png")
-```
+<div class="figure">
+<img src="../results/scatter.png" alt="Figure 3. Building size vs assessment value scatterplot" width="50%" height="100%" />
+<p class="caption">Figure 3. Building size vs assessment value scatterplot</p>
+</div>
 
 
 Box plots were used to examine the distribution of property assessment values for several of our binary property-attribute features. We notice the median property assessment values tend to be very similar regardless of the presence of these property-attributes, although there tends to be more of a concentration of high-value property assessment outliers when the attribute is present. 
 
-```{r boxplot, echo=FALSE, fig.cap="Figure 4. Binary housing features vs assessment value boxplots", out.height="100%", out.width="100%"}
-knitr::include_graphics("../results/boxplot.png")
-```
+<div class="figure">
+<img src="../results/boxplot.png" alt="Figure 4. Binary housing features vs assessment value boxplots" width="100%" height="100%" />
+<p class="caption">Figure 4. Binary housing features vs assessment value boxplots</p>
+</div>
 
 ## Analysis
 
@@ -79,20 +93,23 @@ A Ridge Regression approach was used to model property assessment values against
 
 Our prediction model performed well on training data with a mean cross validation $R^2$ of 0.767. Our $R^2$ performed slightly better on our test data at 0.788, which suggests our model is not overfitting.
 
-```{r cross validation scores, echo=FALSE, message=FALSE, warning=FALSE}
-cv_score <- read_csv("../results/validation_table.csv")
-colnames(cv_score) <- c("Metric", "Dummy regression score", "Ridge regression score")
-kable(cv_score, 
-      caption="Table 1. Mean cross-validation scores")
-```
+
+Table: Table 1. Mean cross-validation scores
+
+|Metric      | Dummy regression score| Ridge regression score|
+|:-----------|----------------------:|----------------------:|
+|fit_time    |              0.0033974|              2.5227427|
+|score_time  |              0.0004950|              0.0174559|
+|test_score  |             -0.0001442|              0.7669166|
+|train_score |              0.0000000|              0.7688485|
 
 
-```{r test scores, echo=FALSE, message=FALSE, warning=FALSE}
-test_score <- read_csv("../results/test_score.csv")
-colnames(test_score) <- c("Metric", "Ridge regression score")
-kable(test_score, 
-      caption="Table 2. Test score using `Ridge` regression model from `sklearn`")
-```
+
+Table: Table 2. Test score using `Ridge` regression model from `sklearn`
+
+|Metric     | Ridge regression score|
+|:----------|----------------------:|
+|test_score |              0.7881219|
 
 Looking at our coefficients table, our model found that a one sq foot increase in property size was associated with a \$284 increase in property assessment value. Features like the property having a garage or fireplace was associated with an increase in assessment value of \$20,637 and \$2186 respectively. Coefficients that indicate the property building type were found to have very large, and sometimes unintuitive coefficient sizes. Although our model assumes that one explanatory variable can change while keeping the others constant, the validity of this is a potential concern. 
 
