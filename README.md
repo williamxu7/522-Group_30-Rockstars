@@ -37,7 +37,7 @@ python src/eda_script.py --in_file1=data/2018_Property_Tax_Assessment_clean.csv 
 python src/housing_assessment_prediction.py --in_file1=data/2018_Property_Tax_Assessment_clean_train.csv --in_file2=data/2018_Property_Tax_Assessment_clean_test.csv --out_file1=results/validation_table.csv --out_file2=results/test_score.csv --out_file3=results/coefficients_table.csv
 
 # render final model
-
+Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')"
 ```
 
 ## Dependencies
