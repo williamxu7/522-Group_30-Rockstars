@@ -52,5 +52,5 @@ Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')
 ## License
 The Strathcona County Housing Price Predictor materials here are licensed under the Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA). If re-using/re-mixing please provide attribution and link to this webpage.
 
-# References
+## References
 “2018 Property Tax Assessment”. Strathcona County’s Open Data Portal. https://data.strathcona.ca/Housing-Buildings/2018-Property-Tax-Assessment/6wvk-j7e9
