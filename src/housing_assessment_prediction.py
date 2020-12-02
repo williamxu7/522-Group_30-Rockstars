@@ -7,11 +7,11 @@ Usage: data_analysis.py --in_file1=<in_file1> --in_file2=<in_file2>
                         --out_file1=<out_file1> --out_file2=<out_file2> --out_file3=<out_file3>
  
 Options:
-<in_file1>       file path of the cleaned train set
-<in_file2>       file path of the cleaned test set
-<out_file1>      file path of table for cross validation scores
-<out_file2>      file path of for test score
-<out_file3>      file path of for coefficients table 
+--in_file1=<in_file1>        file path of the cleaned train set
+--in_file2=<in_file2>        file path of the cleaned test set
+--out_file1=<out_file1>      file path of table for cross validation scores
+--out_file2=<out_file2>      file path of for test score
+--out_file3=<out_file3>      file path of for coefficients table 
 
 
 """

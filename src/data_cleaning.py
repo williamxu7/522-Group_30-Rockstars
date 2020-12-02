@@ -7,10 +7,10 @@ Usage: data_cleaning.py --in_file=<in_file> --out_file1=<out_file1>
                         --out_file2=<out_file2> --out_file3=<out_file3>
  
 Options:
-<in_file>        file path of the raw csv file 
-<out_file1>      file path of the cleaned csv file
-<out_file2>      file path of the train portion of the csv file
-<out_file3>      file path of the test portion of the csv file
+--in_file=<in_file>          file path of the raw csv file 
+--out_file1=<out_file1>      file path of the cleaned csv file
+--out_file2=<out_file2>      file path of the train portion of the csv file
+--out_file3=<out_file3>      file path of the test portion of the csv file
 
 """
 
