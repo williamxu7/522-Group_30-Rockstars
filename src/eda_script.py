@@ -6,9 +6,9 @@
 Usage: eda_script.py --in_file1=<in_file1> --in_file2=<in_file2> --output_file=<output_file>
 
 Options:
-<in_file1>        File path (including filename) of the cleaned csv file 
-<in_file2>        File path (including filename) of the cleaned train dataset file
-<output_file>     Path of where to locally write the files
+--in_file1=<in_file1>           File path (including filename) of the cleaned csv file 
+--in_file2=<in_file2>           File path (including filename) of the cleaned train dataset file
+--output_file=<output_file>     Path of where to locally write the files
 """
 
 import os
