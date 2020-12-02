@@ -3,7 +3,7 @@
 
 """Converts downloaded csv data into a cleaned data set.
 
-Usage: data_cleaning.py --in_file=<in_file> --out_file1=<out_file1> 
+Usage: data_cleaning.py --in_file=<in_file> --out_file1=<out_file1> \
                         --out_file2=<out_file2> --out_file3=<out_file3>
  
 Options:
