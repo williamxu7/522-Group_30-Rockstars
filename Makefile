@@ -4,7 +4,7 @@
 # This driver script runs our script 1 to script 5 for the project.
 
 # example usage:
-# make data/2018_Property_Tax_Assessment_clean.csv data/2018_Property_Tax_Assessment_clean_train.csv data/2018_Property_Tax_Assessment_clean_test.csv results/ 
+# make data/2018_Property_Tax_Assessment_clean.csv data/2018_Property_Tax_Assessment_clean_train.csv data/2018_Property_Tax_Assessment_clean_test.csv results/* 
 
 all : doc/count_report.md
 
@@ -17,10 +17,10 @@ data/2018_Property_Tax_Assessment_clean.csv data/2018_Property_Tax_Assessment_cl
 	python src/data_cleaning.py --in_file=data/2018_Property_Tax_Assessment.csv --out_file1=data/2018_Property_Tax_Assessment_clean.csv --out_file2=data/2018_Property_Tax_Assessment_clean_train.csv --out_file3=data/2018_Property_Tax_Assessment_clean_test.csv
 	
 # create exploratory data analysis figure and write to file 
-results/ : data/2018_Property_Tax_Assessment_clean_train.csv data/2018_Property_Tax_Assessment_clean.csv src/eda_script.py
+results/* : data/2018_Property_Tax_Assessment_clean_train.csv data/2018_Property_Tax_Assessment_clean.csv src/eda_script.py
 	python src/eda_script.py --in_file1=data/2018_Property_Tax_Assessment_clean.csv --in_file2=data/2018_Property_Tax_Assessment_clean_train.csv --output_file=results/	
 
 clean :
 	rm -rf data/2018_Property_Tax_Assessment.csv 
 	rm -rf data/2018_Property_Tax_Assessment_clean.csv data/2018_Property_Tax_Assessment_clean_train.csv data/2018_Property_Tax_Assessment_clean_test.csv
-	rm -rf results/ 
+	rm -rf results/* 
