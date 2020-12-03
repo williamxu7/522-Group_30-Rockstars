@@ -3,7 +3,7 @@
 
 """Prediction of Housing Prices using Ridge Regression
 
-Usage: data_analysis.py --in_file1=<in_file1> --in_file2=<in_file2>
+Usage: data_analysis.py --in_file1=<in_file1> --in_file2=<in_file2> \
                         --out_file1=<out_file1> --out_file2=<out_file2> --out_file3=<out_file3>
  
 Options:
