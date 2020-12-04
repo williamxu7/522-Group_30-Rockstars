@@ -1,14 +1,14 @@
 # authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 # date: 2020-11-27
 
-"""Creates exploratory data visualizations and tables
+"""Creates exploratory data visualizations and tables to eventually be used in final report
 
 Usage: eda_script.py --in_file1=<in_file1> --in_file2=<in_file2> --output_file=<output_file>
 
 Options:
---in_file1=<in_file1>           File path (including filename) of the cleaned csv file 
---in_file2=<in_file2>           File path (including filename) of the cleaned train dataset file
---output_file=<output_file>     Path of where to locally write the files
+--in_file1=<in_file1>           File path and filename of the input cleaned csv file 
+--in_file2=<in_file2>           File path and filename of the input cleaned train csv file
+--output_file=<output_file>     Path of where to locally write .PNG EDA figures
 """
 
 import os
