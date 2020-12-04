@@ -1,18 +1,18 @@
 # authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 # date: 2020-11-26
 
-"""Scripting to produce results for our predictive model for housing prices 
+"""Prediction of Housing Prices using RidgeRegression, RandomForestRegressor, and XGBRegressor
 
 Usage: data_analysis.py --in_file1=<in_file1> --in_file2=<in_file2> \
                         --out_file1=<out_file1> --out_file2=<out_file2> --out_file3=<out_file3>
  
 Options:
+
 --in_file1=<in_file1>        file path of the input cleaned train set
 --in_file2=<in_file2>        file path of the input cleaned test set
 --out_file1=<out_file1>      file path for a table of cross validation scores
 --out_file2=<out_file2>      file path for a table of model scoring on testing data
 --out_file3=<out_file3>      file path for a table of estimated coefficients from the model 
-
 """
 
 import os
@@ -34,6 +34,8 @@ from sklearn.model_selection import (
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 from sklearn.metrics import r2_score
+from sklearn.ensemble import RandomForestRegressor
+from xgboost import XGBRegressor
 
 opt = docopt(__doc__)
 
@@ -84,6 +86,16 @@ def main(in_file1,in_file2, out_file1, out_file2, out_file3):
     ridgecv = make_pipeline(preprocessor, RidgeCV(alphas=alphas))
     ridgecv_scores = cross_validate(ridgecv, X_train, y_train, cv=10, return_train_score=True, scoring = "r2")
     store_scores["ridgecv_score"] =  pd.DataFrame(ridgecv_scores).mean().tolist()
+    
+    #RandomForestRegressor() with max_depth = , n_estimators = 70, and random_state= 123
+    random_forest_regression = make_pipeline(preprocessor, RandomForestRegressor(max_depth = 5, n_estimators= 70, random_state=123))
+    random_forest_scores = cross_validate(random_forest_regression, X_train, y_train, cv=5, return_train_score=True, scoring= 'r2', n_jobs=-1)
+    store_scores["random_forest"] = pd.DataFrame(random_forest_scores).mean().tolist()
+    
+    #XGBRegressor() with max_depth = , n_estimators = 70, and random_state= 123
+    xgb_regression = make_pipeline(preprocessor, XGBRegressor(max_depth = 5, n_estimators= 70, random_state=123))
+    xgb_scores = cross_validate(xgb_regression, X_train, y_train, cv=5, return_train_score=True, scoring= 'r2', n_jobs=-1)
+    store_scores["XGB_Regression"] = pd.DataFrame(xgb_scores).mean().tolist()
 
     #table for cross_validation scores 
     scores_df = pd.DataFrame(store_scores, index = dummy_scores.keys())
