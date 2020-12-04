@@ -1,14 +1,14 @@
 # authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 # date: 2020-11-27
 
-"""Creates exploratory data visualizations and tables
+"""Creates exploratory data visualizations and tables to eventually be used in final report
 
 Usage: eda_script.py --in_file1=<in_file1> --in_file2=<in_file2> --output_file=<output_file>
 
 Options:
-<in_file1>        File path (including filename) of the cleaned csv file 
-<in_file2>        File path (including filename) of the cleaned train dataset file
-<output_file>     Path of where to locally write the files
+--in_file1=<in_file1>           File path and filename of the input cleaned csv file 
+--in_file2=<in_file2>           File path and filename of the input cleaned train csv file
+--output_file=<output_file>     Path of where to locally write .PNG EDA figures
 """
 
 import os
@@ -42,7 +42,7 @@ def main(in_file1, in_file2, output_file):
     # Correlation map
     corrmat = df.corr(method='pearson')
     f, ax = plt.subplots(figsize=(8, 8))
-    cormap = sns.heatmap(corrmat, vmax=1., square=True)
+    cormap = sns.heatmap(corrmat, vmax=1., square=True, annot=True, cmap=plt.cm.Blues)
     correlation_map = cormap.get_figure()
     # plt.title("Correlation map", fontsize=16)
     correlation_map.savefig(output_file + 'corrmat.png')
