@@ -46,6 +46,7 @@ Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')
    - seaborn==0.11.0
    - selenium==3.141.0
    - vega-datasets==0.8.0
+   - XGBoost==1.2.0
 - R version 4.0.2 and R packages:
   - knitr==1.29
   - tidyverse==1.3.0
