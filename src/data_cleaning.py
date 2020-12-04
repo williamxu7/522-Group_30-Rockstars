@@ -1,16 +1,16 @@
 # authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 # date: 2020-11-26
 
-"""Converts downloaded csv data into a cleaned data set.
+"""Converts a downloaded csv data into a cleaned data set.
 
 Usage: data_cleaning.py --in_file=<in_file> --out_file1=<out_file1> \
                         --out_file2=<out_file2> --out_file3=<out_file3>
  
 Options:
---in_file=<in_file>          file path of the raw csv file 
+--in_file=<in_file>          file path of the raw input csv file 
 --out_file1=<out_file1>      file path of the cleaned csv file
---out_file2=<out_file2>      file path of the train portion of the csv file
---out_file3=<out_file3>      file path of the test portion of the csv file
+--out_file2=<out_file2>      file path of the training portion of the cleaned csv file
+--out_file3=<out_file3>      file path of the testing portion of the cleaned csv file
 
 """
 
@@ -23,7 +23,6 @@ opt = docopt(__doc__)
 
 def main(in_file, out_file1, out_file2, out_file3):
 
-    
     data = pd.read_csv(in_file, skiprows = 1)
     data = data.query("ASSESSCLAS == 'Residential'")
     data = data.drop(columns = ['the_geom', 'TAX_YEAR','ROLL_NUM', 'ADDRESS', 'BLDG_METRE'])
