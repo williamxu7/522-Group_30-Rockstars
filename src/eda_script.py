@@ -42,7 +42,7 @@ def main(in_file1, in_file2, output_file):
     # Correlation map
     corrmat = df.corr(method='pearson')
     f, ax = plt.subplots(figsize=(8, 8))
-    cormap = sns.heatmap(corrmat, vmax=1., square=True)
+    cormap = sns.heatmap(corrmat, vmax=1., square=True, annot=True, cmap=plt.cm.Blues)
     correlation_map = cormap.get_figure()
     # plt.title("Correlation map", fontsize=16)
     correlation_map.savefig(output_file + 'corrmat.png')
