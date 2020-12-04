@@ -75,15 +75,19 @@ knitr::include_graphics("../results/boxplot.png")
 
 ## Analysis
 
-A Ridge Regression approach was used to model property assessment values against our set of available features. The features were classified in three types in order to conduct distinct transformations: categorical features, binary features and continuous features. The alpha hyperparameter for the Ridge Regression was tuned using cross-validation over the discrete set of alpha values of 0.0001, 0.001, 0.01, and up to 1000. Assessment of the model, based on training data only, was made with cross-validation (using 10-folds) and was scored using $R^2$. 
+We fitted our training data under a number of candidate models. Before this took place, the features were classified in three types in order to conduct distinct transformations: categorical features, binary features and continuous features.
 
-Our prediction model performed well on training data with a mean cross validation $R^2$ of 0.767. Our $R^2$ performed slightly better on our test data at 0.788, which suggests our model is not overfitting.
+For the Ridge Regression model, the alpha hyperparameter was optimized using cross-validation over the discrete set of alpha values of 0.0001, 0.001, 0.01, and up to 1000. Assessment of the model, based on training data only, was made with cross-validation (using 5-folds) and was scored using $R^2$. 
+
+For the Random Forest Regressor model, 70 estimators were estimated along with using a max depth of 5. Our XGBoost Regressor model used the same hyperparameter values.  
+
+XGBoost had the best cross-validation score, with an $R^2$ of 0.896, compared to the other models which ranged from 0.77 to 0.80. Overfitting with XGBoost appears moderate based on the scoring performance gap between its training score and cross-validation score.
 
 ```{r cross validation scores, echo=FALSE, message=FALSE, warning=FALSE}
 cv_score <- read_csv("../results/validation_table.csv")
-colnames(cv_score) <- c("Metric", "Dummy regression score", "Ridge regression score")
+colnames(cv_score) <- c("Metric", "Dummy Regression Model", "Ridge Regression Model", "Random Forest Regressor", "XGBoost Regressor")
 kable(cv_score, 
-      caption="Table 1. Mean cross-validation scores")
+      caption="Table 1. Mean Scoring Metrics Using Cross-Validation")
 ```
 
 
