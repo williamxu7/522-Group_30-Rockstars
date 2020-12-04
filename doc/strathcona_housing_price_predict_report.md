@@ -65,7 +65,7 @@ A quick glance of our data found a small number of observations with missing val
 ## memory usage: 2.3+ MB
 ```
 
-The correlation heat map -restricted to only our numeric features - shows that the property assessment value has its strongest correlation with square footage. The second most correlated feature to property assessment value is age of the property which can be reflected from the year built feature. 
+The correlation heat map -restricted to only our numeric features - shows that the property assessment value has its strongest correlation with square footage (with a correlation of 0.79). The second most correlated feature to property assessment value is age of the property (correlation of 0.36) which can be reflected from the year built feature. 
 <div class="figure">
 <img src="../results/corrmat.png" alt="Figure 2. Housing features correlation heatmap" width="50%" height="100%" />
 <p class="caption">Figure 2. Housing features correlation heatmap</p>
@@ -96,12 +96,12 @@ Our prediction model performed well on training data with a mean cross validatio
 
 Table: Table 1. Mean cross-validation scores
 
-|Metric      | Dummy regression score| Ridge regression score|
-|:-----------|----------------------:|----------------------:|
-|fit_time    |              0.0033974|              2.5227427|
-|score_time  |              0.0004950|              0.0174559|
-|test_score  |             -0.0001442|              0.7669166|
-|train_score |              0.0000000|              0.7688485|
+|Metric      | Dummy regression score| Ridge regression score|        NA|        NA|
+|:-----------|----------------------:|----------------------:|---------:|---------:|
+|fit_time    |              0.0018001|              1.2581116| 2.5718910| 1.5510944|
+|score_time  |              0.0003996|              0.0095090| 0.0350014| 0.0308010|
+|test_score  |             -0.0001442|              0.7669276| 0.8015252| 0.8963127|
+|train_score |              0.0000000|              0.7688487| 0.8231964| 0.9466038|
 
 
 
@@ -109,7 +109,7 @@ Table: Table 2. Test score using `Ridge` regression model from `sklearn`
 
 |Metric     | Ridge regression score|
 |:----------|----------------------:|
-|test_score |              0.7881219|
+|test_score |              0.7881277|
 
 Looking at our coefficients table, our model found that a one sq foot increase in property size was associated with a \$284 increase in property assessment value. Features like the property having a garage or fireplace was associated with an increase in assessment value of \$20,637 and \$2186 respectively. Coefficients that indicate the property building type were found to have very large, and sometimes unintuitive coefficient sizes. Although our model assumes that one explanatory variable can change while keeping the others constant, the validity of this is a potential concern. 
 
