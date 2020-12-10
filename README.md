@@ -5,8 +5,6 @@ A data analysis project on Property Assessment Prediction for Single-Family Dwel
 
 ## About
 
-Here we attempt to build a classification model using the k-nearest neighbours algorithm which can use breast cancer tumour image measurements to predict whether a newly discovered breast cancer tumour is benign (i.e., is not harmful and does not require treatment) or malignant (i.e., is harmful and requires treatment intervention). Our final classifier performed fairly well on an unseen test data set, with Cohen’s Kappa score of 0.9 and an overall accuracy calculated to be 0.97. On the 142 test data cases, it correctly predicted 138. However it incorrectly predicted 4 cases, and importantly these cases were false negatives; predicting that a tumour is benign when in fact it is malignant. These kind of incorrect predictions could have a severly negative impact on a patients health outcome, thus we recommend continuing study to improve this prediction model before it is put into production in the clinic.
-
 The data set used in our project are [2018 property assessments](https://data.strathcona.ca/Housing-Buildings/2018-Property-Tax-Assessment/6wvk-j7e9) , restricted strictly for single-family dwellings in Strathcona County, Alberta (“2018 Property Tax Assessment”). Each row in the data set represents a distinct property within Strathcona Counties borders, and each column represents a potential explanatory variable, along with our dependent variable (property assessment value). Our set of explanatory variables is composed of continuous, categorical, and binary data types, these being: Building Size, Building Description, Age of Property, Year Built, Presence of Basement, Presence of Furnished Basement, Presence of Garage, Presence of Fireplace, and Longitude and Latitude. Altogether our dataset is composed of 28,450 observations.
 To get an accurate assessment of our predictive model, we build a training model using 90% of our observations, and reserve the remaining 10% as test data to assess goodness of fit.
 
@@ -48,7 +46,8 @@ Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')
    - vega-datasets==0.8.0
    - XGBoost==1.2.0
 - R version 4.0.2 and R packages:
-  - knitr==1.29
+  - knitr==1.30
+  - rmarkdown==2.5
   - tidyverse==1.3.0
 
 ## License
