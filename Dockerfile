@@ -1,3 +1,5 @@
+# Author: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
+
 FROM jupyter/scipy-notebook
 
 # Install Python 3 packages
