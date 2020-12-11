@@ -63,6 +63,7 @@ make clean
 - R version 4.0.2 and R packages:
   - knitr==1.30
   - rmarkdown==2.5
+  - reticulate==1.18
   - tidyverse==1.3.0
 
 ## License
