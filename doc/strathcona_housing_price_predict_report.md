@@ -36,7 +36,7 @@ Our dependent variable - property assessment value - exhibits right skew. Most p
 
 
 <div class="figure">
-<img src="../results/barchart.png" alt="Figure 1. Assessment value frequency distribution" width="100%" height="100%" />
+<img src="../results/barchart.svg" alt="Figure 1. Assessment value frequency distribution" width="100%" height="100%" />
 <p class="caption">Figure 1. Assessment value frequency distribution</p>
 </div>
 
@@ -49,9 +49,9 @@ A quick glance of our data found a small number of observations with missing val
 ## Data columns (total 12 columns):
 ##  #   Column      Non-Null Count  Dtype  
 ## ---  ------      --------------  -----  
-##  0   YEAR_BUILT  25597 non-null  float64
+##  0   YEAR_BUILT  25596 non-null  float64
 ##  1   ASSESSCLAS  25605 non-null  object 
-##  2   BLDG_DESC   25597 non-null  object 
+##  2   BLDG_DESC   25596 non-null  object 
 ##  3   BLDG_FEET   25605 non-null  int64  
 ##  4   GARAGE      25605 non-null  object 
 ##  5   FIREPLACE   25605 non-null  object 
@@ -60,7 +60,7 @@ A quick glance of our data found a small number of observations with missing val
 ##  8   ASSESSMENT  25605 non-null  int64  
 ##  9   LATITUDE    25605 non-null  float64
 ##  10  LONGITUDE   25605 non-null  float64
-##  11  AGE         25597 non-null  float64
+##  11  AGE         25596 non-null  float64
 ## dtypes: float64(4), int64(2), object(6)
 ## memory usage: 2.3+ MB
 ```
@@ -75,16 +75,16 @@ A closer look at a scatter plot of property assessment values and square footage
 
 
 <div class="figure">
-<img src="../results/scatter.png" alt="Figure 3. Building size vs assessment value scatterplot" width="50%" height="100%" />
+<img src="../results/scatter.svg" alt="Figure 3. Building size vs assessment value scatterplot" width="50%" height="100%" />
 <p class="caption">Figure 3. Building size vs assessment value scatterplot</p>
 </div>
 
 
-Box plots were used to examine the distribution of property assessment values for several of our binary property-attribute features. We notice the median property assessment values tend to be very similar regardless of the presence of these property-attributes, although there tends to be more of a concentration of high-value property assessment outliers when the attribute is present. 
+Violin plots were used to examine the distribution of property assessment values for several of our binary property-attribute features. We notice the median property assessment values tend to be very similar regardless of the presence of these property-attributes, although there tends to be more of a concentration of high-value property assessment outliers when the attribute is present. 
 
 <div class="figure">
-<img src="../results/boxplot.png" alt="Figure 4. Binary housing features vs assessment value boxplots" width="100%" height="100%" />
-<p class="caption">Figure 4. Binary housing features vs assessment value boxplots</p>
+<img src="../results/violinplot.svg" alt="Figure 4. Binary housing features vs assessment value violin plots" width="100%" height="100%" />
+<p class="caption">Figure 4. Binary housing features vs assessment value violin plots</p>
 </div>
 
 ## Analysis
@@ -102,18 +102,19 @@ Table: Table 1. Mean Scoring Metrics Using Cross-Validation
 
 |Metric      | Dummy Regression Model| Ridge Regression Model| Random Forest Regressor| XGBoost Regressor|
 |:-----------|----------------------:|----------------------:|-----------------------:|-----------------:|
-|fit_time    |              0.0018001|              1.2581116|               2.5718910|         1.5510944|
-|score_time  |              0.0003996|              0.0095090|               0.0350014|         0.0308010|
-|test_score  |             -0.0001442|              0.7669276|               0.8015252|         0.8963127|
-|train_score |              0.0000000|              0.7688487|               0.8231964|         0.9466038|
-
+|fit_time    |                 0.0172|                 4.9347|                  6.2244|            3.7322|
+|score_time  |                 0.0038|                 0.0311|                  0.1889|            0.2471|
+|test_score  |                -0.0004|                 0.7697|                  0.8003|            0.8930|
+|train_score |                 0.0000|                 0.7713|                  0.8256|            0.9479|
 
 
 Table: Table 2. Test score using `Ridge` regression model from `sklearn`
 
 |Metric     | Ridge regression score|
 |:----------|----------------------:|
-|test_score |              0.7881277|
+|test_score |              0.7677446|
+
+Ultimately, we chose the Ridge Regression model as the model of choice due to its clear interpretability. The ability to distinguish which features are more influential in housing assessment values are important to increase the transparency for buyers and sellers in the market. The Ridge model scored an $R^2$ of 0.788 on the test split, which is consistent with the cross-validation score results of 0.766. 
 
 Looking at our coefficients table, our model found that a one sq foot increase in property size was associated with a \$284 increase in property assessment value. Features like the property having a garage or fireplace was associated with an increase in assessment value of \$20,637 and \$2186 respectively. Coefficients that indicate the property building type were found to have very large, and sometimes unintuitive coefficient sizes. Although our model assumes that one explanatory variable can change while keeping the others constant, the validity of this is a potential concern. 
 
@@ -123,9 +124,9 @@ The programming language Python was used in our research along with the Python-a
 
 Property location is a useful determinant of property values, however, our use of longitude/latitude coordinates is limited. These features would be much more useful if they were converted into neighbourhood identification. Future work could incorporate this as Strathcona County makes available polygon shape files that indicate the latitude/longitude boundaries of its neighbourhoods. 
 
-Our modelling here was restrained to Ridge Regression, and it would be worthwhile to compare prediction results to other well known models including the traditional Multiple Linear Regression and Random Forest Regression. Other more advanced and novel methods/models could be considered. Fuzzy Logic has been applied for housing price prediction in a city in Turkey [@kucsan2010use], while Machine-Learning approaches of C4.5, RIPPER, Naïve Bayesian, and AdaBoost have been evaluated for house price prediction in Fairfax County, Virginia [@park2015using].
+Our modeling here was restrained to Ridge Regression, Random Forest Regression, and XGBoost Regressor, it would be worthwhile to compare prediction results to other well known models including the traditional Multiple Linear Regression and Ensemble models. Other more advanced and novel methods/models could be considered. Fuzzy Logic has been applied for housing price prediction in a city in Turkey [@kucsan2010use], while Machine-Learning approaches of C4.5, RIPPER, Naïve Bayesian, and AdaBoost have been evaluated for house price prediction in Fairfax County, Virginia [@park2015using].
 
-While our dataset had a reasonably large number of observations, the data is available to incorporate multiple years of property assessment observations into the model. However, this would cause our observations to not be entirely independent from one another, which would require some adjustments in our modelling.
+While our dataset had a reasonably large number of observations, the data is available to incorporate multiple years of property assessment observations into the model. However, this would cause our observations to not be entirely independent from one another, which would require some adjustments in our modeling.
 
 
 # References

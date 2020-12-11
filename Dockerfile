@@ -36,6 +36,7 @@ RUN conda install -c conda-forge --quiet --yes \
     'r-tidyverse=1.3*' \
     'r-rmarkdown=2.5*' \
     'r-knitr=1.29.*' \
+    'r-reticulate' \
     && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}"
