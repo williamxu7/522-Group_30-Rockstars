@@ -10,6 +10,7 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
 library(tidyverse)
 library(knitr)
 ```
@@ -43,7 +44,7 @@ Our dependent variable - property assessment value - exhibits right skew. Most p
 
 
 ```{r barchart-plot, echo=FALSE, fig.cap="Figure 1. Assessment value frequency distribution", out.height="100%", out.width="100%"}
-knitr::include_graphics("../results/barchart.png")
+knitr::include_graphics("../results/barchart.svg")
 ```
 
 A quick glance of our data found a small number of observations with missing values for particular features. These observations were later dropped from our model. 
@@ -62,14 +63,14 @@ A closer look at a scatter plot of property assessment values and square footage
 
 
 ```{r scatter-plot, echo=FALSE, fig.cap="Figure 3. Building size vs assessment value scatterplot", out.height="100%", out.width="50%"}
-knitr::include_graphics("../results/scatter.png")
+knitr::include_graphics("../results/scatter.svg")
 ```
 
 
-Box plots were used to examine the distribution of property assessment values for several of our binary property-attribute features. We notice the median property assessment values tend to be very similar regardless of the presence of these property-attributes, although there tends to be more of a concentration of high-value property assessment outliers when the attribute is present. 
+Violin plots were used to examine the distribution of property assessment values for several of our binary property-attribute features. We notice the median property assessment values tend to be very similar regardless of the presence of these property-attributes, although there tends to be more of a concentration of high-value property assessment outliers when the attribute is present. 
 
-```{r boxplot, echo=FALSE, fig.cap="Figure 4. Binary housing features vs assessment value boxplots", out.height="100%", out.width="100%"}
-knitr::include_graphics("../results/boxplot.png")
+```{r violinplot, echo=FALSE, fig.cap="Figure 4. Binary housing features vs assessment value violin plots", out.height="100%", out.width="100%"}
+knitr::include_graphics("../results/violinplot.svg")
 ```
 
 ## Analysis
