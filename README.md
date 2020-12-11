@@ -12,23 +12,38 @@ To get an accurate assessment of our predictive model, we build a training model
 The final report can be found [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/UBC-MDS/522-Group_30-Rockstars/main/doc/strathcona_housing_price_predict_report.html).
 
 ## Usage
+
+There are two suggested ways to run this analysis:
+
+#### 1. Using Docker
+*note - the instructions in this section also depends on running this in a unix shell (e.g., terminal or Git Bash)*
+
+To replicate the analysis, install [Docker](https://www.docker.com/get-started). Then clone this GitHub repository and run the following command at the command line/terminal from the root directory of this project:
+
 To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
 
 ```
-# download data
-python src/download_data.py --url=https://data.strathcona.ca/api/views/c9fr-ivqf/rows.csv?accessType=DOWNLOAD --out_file=data/2018_Property_Tax_Assessment.csv
+docker run --rm -v /$(pwd):/home/data_analysis_eg group30 make -C /home/data_analysis_eg all
+```
 
-# preprocess data
-python src/data_cleaning.py --in_file=data/2018_Property_Tax_Assessment.csv --out_file1=data/2018_Property_Tax_Assessment_clean.csv --out_file2=data/2018_Property_Tax_Assessment_clean_train.csv --out_file3=data/2018_Property_Tax_Assessment_clean_test.csv
+To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
 
-# create exploratory data analysis figure and write to file 
-python src/eda_script.py --in_file1=data/2018_Property_Tax_Assessment_clean.csv --in_file2=data/2018_Property_Tax_Assessment_clean_train.csv --output_file=results/
+```
+docker run --rm -v /$(pwd):/home/data_analysis_eg group30 make -C /home/data_analysis_eg clean
+```
 
-# tune and test model
-python src/housing_assessment_prediction.py --in_file1=data/2018_Property_Tax_Assessment_clean_train.csv --in_file2=data/2018_Property_Tax_Assessment_clean_test.csv --out_file1=results/validation_table.csv --out_file2=results/test_score.csv --out_file3=results/coefficients_table.csv
+#### 2. Without using Docker
 
-# render final model
-Rscript -e "rmarkdown::render('doc/strathcona_housing_price_predict_report.Rmd')"
+To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) listed below, and run the following command at the command line/terminal from the root directory of this project:
+
+```
+make all
+```
+
+To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
+
+```
+make clean
 ```
 
 ## Dependencies
