@@ -50,12 +50,14 @@ def main(in_file1, in_file2, output_file):
     # Relationship between building sizes and assessed values
     df_bsav = train_df.groupby('BLDG_FEET').mean('ASSESSMENT')
     df_bsav = df_bsav.reset_index()
-
+    
+        #scatterplot points
     alt.data_transformers.disable_max_rows()
     population = alt.Chart(train_df, title = "Relationship between building sizes and assessed values").mark_circle(color='grey').encode(
         alt.X('BLDG_FEET', title = "Building Size(fts)"),
         alt.Y('ASSESSMENT', title = "Assessment Value($)"))
 
+        # assessment value conditional on building size
     conditional = alt.Chart(df_bsav).mark_circle(opacity=0.3, color='blue').encode(
         alt.X('BLDG_FEET', title = "Building Size(fts)"),
         alt.Y('ASSESSMENT', title = "Assessment Value($)"))
@@ -63,6 +65,8 @@ def main(in_file1, in_file2, output_file):
     scatter = (population + conditional).configure_title(fontSize=17)
     scatter.save(output_file + "scatter.png")
 
+
+    # box plot of binary features and property assessment value
     boxplot = (alt.Chart(train_df).mark_boxplot().encode(
         x=alt.X(alt.repeat(), type='nominal'),
         y='ASSESSMENT'

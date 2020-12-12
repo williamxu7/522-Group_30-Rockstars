@@ -121,6 +121,7 @@ def main(in_file1,in_file2, out_file1, out_file2, out_file3):
     feature_table = pd.DataFrame(feature_table)
     
     
+    # produce output files and create directory if it does not exist
     try:
         scores_df.to_csv(out_file1, index=False)
     except:
