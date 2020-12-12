@@ -2,7 +2,7 @@
 title: "Strathcona county housing price predictor"
 author: "Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu"
 bibliography: references.bib
-date: "11/28/2020"
+date: "12/12/2020"
 output: 
   html_document:
     keep_md: true
