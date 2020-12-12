@@ -1,13 +1,13 @@
 # authors: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
 # date: 2020-11-20
 
-"""Downloads data csv data from the web to a local filepath.
+"""Downloads a raw csv dataset from the web to a local filepath.
 
 Usage: download_data.py --url=<url> --out_file=<out_file> 
  
 Options:
---url=<url>                    URL from where to download the data (must be in csv format)
---out_file=<out_file>          Path and filename where to locally write the file
+--url=<url>                 URL from where to download the data (must be in csv format)
+--out_file=<out_file>       Path and filename where to locally write the file
 """
 
 import os
@@ -16,6 +16,7 @@ from docopt import docopt
 
 opt = docopt(__doc__)
 
+# reads an online csv and writes it to local directory
 def main(url, out_file):
     data = pd.read_csv(url, header=None, low_memory = False)
     try:
@@ -23,7 +24,6 @@ def main(url, out_file):
     except:
         os.makedirs(os.path.dirname(out_file))
         data.to_csv(out_file, index=False)
-
 
 
 if __name__ == "__main__":
