@@ -64,7 +64,6 @@ The image below shows the Makefile dependency, click it to see the original imag
    - scikit-learn==0.23.2
    - seaborn==0.11.0
    - selenium==3.141.0
-   - vega-datasets==0.8.0
    - XGBoost==1.2.0
 - R version 4.0.2 and R packages:
   - knitr==1.30
