@@ -23,8 +23,6 @@ There are two suggested ways to run this analysis:
 
 To replicate the analysis, install [Docker](https://www.docker.com/get-started). Then clone this GitHub repository and run the following command at the command line/terminal from the root directory of this project:
 
-To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
-
 ```
 docker run --rm -v /$(pwd):/home/data_analysis_eg williamxu7/dockerfile-practice:v0.8.0 make -C /home/data_analysis_eg all
 ```
