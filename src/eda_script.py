@@ -34,7 +34,7 @@ def main(in_file1, in_file2, output_file):
     alt.X('ASSESSMENT', bin=alt.Bin(maxbins=60), scale=alt.Scale(domain=(0,2000000)), title='Assessment Value($)'),
     alt.Y('count()'),
     tooltip='count()')
-    barchart.save(output_file + "barchart.png")
+    barchart.save(output_file + "barchart.svg")
     
     # Train data information
     train_info = train_df.info()
@@ -63,18 +63,50 @@ def main(in_file1, in_file2, output_file):
         alt.Y('ASSESSMENT', title = "Assessment Value($)"))
 
     scatter = (population + conditional).configure_title(fontSize=17)
-    scatter.save(output_file + "scatter.png")
+    scatter.save(output_file + "scatter.svg")
 
 
-    # box plot of binary features and property assessment value
-    boxplot = (alt.Chart(train_df).mark_boxplot().encode(
-        x=alt.X(alt.repeat(), type='nominal'),
-        y='ASSESSMENT'
-    ).properties(height=200, width=100
-    ).repeat(['GARAGE', 'FIREPLACE', 'BASEMENT', 'BSMTDEVL']
+     # Violin plots of binary features
+    plot_1 = plot(train_df, 'GARAGE')
+    plot_2 = plot(train_df, 'FIREPLACE')
+    plot_3 = plot(train_df, 'BASEMENT')
+    plot_4 = plot(train_df, 'BSMTDEVL')
+    violinplot = alt.hconcat(plot_1, plot_2, plot_3, plot_4).configure_facet(
+        spacing=0
+    ).configure_view(
+        stroke=None
+    )
+    violinplot.save(output_file + "violinplot.svg")
+    
+def plot(train_df, feature):
+    
+    plot = (alt.Chart(train_df).transform_density(
+        'ASSESSMENT',
+        as_=['ASSESSMENT', 'density'],
+        extent=[0, 1_600_000],
+        groupby=[feature]
+    ).mark_area(orient='horizontal').encode(
+        y=alt.Y('ASSESSMENT:Q'),
+        color=alt.Color(feature,legend=None),
+        x=alt.X(
+            'density:Q',
+            stack='center',
+            impute=None,
+            title=None,
+            axis=alt.Axis(labels=False, values=[0],grid=False, ticks=True),
+        ),
+        column=alt.Column(
+            feature,
+            header=alt.Header(
+                titleOrient='bottom',
+                labelOrient='bottom',
+                labelPadding=0,
+            ),
+        )
+    ).properties(
+        width=100
     ))
-
-    boxplot.save(output_file + "boxplot.png")
+    return plot
 
     
 if __name__ == "__main__":
