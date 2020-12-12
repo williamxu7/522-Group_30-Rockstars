@@ -1,4 +1,6 @@
+# Dockerfile for Strathcona County Housing Price Predictor
 # Author: Cal Schafer, Daniel Ortiz, Jordan Lau, William Xu
+# Dec 2020
 
 FROM jupyter/scipy-notebook
 
