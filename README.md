@@ -23,13 +23,13 @@ To replicate the analysis, install [Docker](https://www.docker.com/get-started).
 To replicate the analysis, clone this GitHub repository, install the [dependencies](#dependencies) below. Finally, run the following commands in terminal from the root directory of this project:
 
 ```
-docker run --rm -v /$(pwd):/home/data_analysis_eg group30 make -C /home/data_analysis_eg all
+docker run --rm -v /$(pwd):/home/data_analysis_eg williamxu7/dockerfile-practice:v0.8.0 make -C /home/data_analysis_eg all
 ```
 
 To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
 
 ```
-docker run --rm -v /$(pwd):/home/data_analysis_eg group30 make -C /home/data_analysis_eg clean
+docker run --rm -v /$(pwd):/home/data_analysis_eg williamxu7/dockerfile-practice:v0.8.0 make -C /home/data_analysis_eg clean
 ```
 
 #### 2. Without using Docker
