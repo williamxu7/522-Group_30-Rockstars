@@ -14,7 +14,7 @@ output:
 
 # Summary
 
-We build a linear regression model that predicts property assessment values of single-family dwellings in Strathcona County, Alberta, Canada. Our model is restricted to 2018 data, and models property assessment values based on several property-related attributes such as building size, age, and building type. Our quick-and-dirty regression performed adequately well on out-of-sample data, with an R-square of 0.78. 
+We build a linear regression model that predicts property assessment values of single-family dwellings in Strathcona County, Alberta, Canada. Our model is restricted to 2018 data, and models property assessment values based on several property-related attributes such as building size, age, and building type. Our Ridge regression model performed adequately well on out-of-sample data, with an $R^2$ of 0.788. 
 
 # Introduction
 
@@ -49,9 +49,9 @@ A quick glance of our data found a small number of observations with missing val
 ## Data columns (total 12 columns):
 ##  #   Column      Non-Null Count  Dtype  
 ## ---  ------      --------------  -----  
-##  0   YEAR_BUILT  25596 non-null  float64
+##  0   YEAR_BUILT  25597 non-null  float64
 ##  1   ASSESSCLAS  25605 non-null  object 
-##  2   BLDG_DESC   25596 non-null  object 
+##  2   BLDG_DESC   25597 non-null  object 
 ##  3   BLDG_FEET   25605 non-null  int64  
 ##  4   GARAGE      25605 non-null  object 
 ##  5   FIREPLACE   25605 non-null  object 
@@ -60,7 +60,7 @@ A quick glance of our data found a small number of observations with missing val
 ##  8   ASSESSMENT  25605 non-null  int64  
 ##  9   LATITUDE    25605 non-null  float64
 ##  10  LONGITUDE   25605 non-null  float64
-##  11  AGE         25596 non-null  float64
+##  11  AGE         25597 non-null  float64
 ## dtypes: float64(4), int64(2), object(6)
 ## memory usage: 2.3+ MB
 ```
@@ -102,19 +102,55 @@ Table: Table 1. Mean Scoring Metrics Using Cross-Validation
 
 |Metric      | Dummy Regression Model| Ridge Regression Model| Random Forest Regressor| XGBoost Regressor|
 |:-----------|----------------------:|----------------------:|-----------------------:|-----------------:|
-|fit_time    |                 0.0172|                 4.9347|                  6.2244|            3.7322|
-|score_time  |                 0.0038|                 0.0311|                  0.1889|            0.2471|
-|test_score  |                -0.0004|                 0.7697|                  0.8003|            0.8930|
-|train_score |                 0.0000|                 0.7713|                  0.8256|            0.9479|
+|fit_time    |                 0.0039|                 1.8314|                  4.0258|            2.2056|
+|score_time  |                 0.0006|                 0.0120|                  0.0582|            0.0516|
+|test_score  |                -0.0001|                 0.7669|                  0.8015|            0.8963|
+|train_score |                 0.0000|                 0.7688|                  0.8232|            0.9466|
 
 
 Table: Table 2. Test score using `Ridge` regression model from `sklearn`
 
 |Metric     | Ridge regression score|
 |:----------|----------------------:|
-|test_score |              0.7677446|
+|test_score |              0.7881219|
 
 Ultimately, we chose the Ridge Regression model as the model of choice due to its clear interpretability. The ability to distinguish which features are more influential in housing assessment values are important to increase the transparency for buyers and sellers in the market. The Ridge model scored an $R^2$ of 0.788 on the test split, which is consistent with the cross-validation score results of 0.766. 
+
+
+Table: Table 3. Coefficient values for features using `Ridge` Regression model from `sklearn`
+
+|Features                            | Coefficient Values|
+|:-----------------------------------|------------------:|
+|LATITUDE                            |         -344879.77|
+|BLDG_DESC_3 Storey & Basement       |         -159302.37|
+|BLDG_DESC_2 Storey Slab on Grade    |         -117134.24|
+|BLDG_DESC_3 Storey Basementless     |         -108070.59|
+|BLDG_DESC_1 3/4 Sty. Slab on Grade  |          -99600.66|
+|BLDG_DESC_2 Storey Basementless     |          -92237.21|
+|BLDG_DESC_missing_value             |          -59728.26|
+|BLDG_DESC_1 1/2 Sty. Slab on Grade  |          -57833.17|
+|BLDG_DESC_2 Storey & Basement       |          -37562.23|
+|BLDG_DESC_1 3/4 Storey Basementless |          -28874.57|
+|BASEMENT_Y                          |          -27802.05|
+|BLDG_DESC_A-Frame Basementless      |          -25754.05|
+|BLDG_DESC_1 1/2 Storey Basementless |          -24797.54|
+|AGE                                 |           -2683.37|
+|BLDG_FEET                           |             284.85|
+|BLDG_DESC_1 3/4 Storey & Basement   |             951.96|
+|FIREPLACE_Y                         |            2186.06|
+|GARAGE_Y                            |           20637.77|
+|BLDG_DESC_1 Storey Slab on Grade    |           30865.55|
+|LONGITUDE                           |           31710.76|
+|BLDG_DESC_Manufactured Home         |           33102.39|
+|BLDG_DESC_1 1/2 Storey & Basement   |           33386.82|
+|BSMTDEVL_Y                          |           42318.11|
+|BLDG_DESC_1 Storey Basementless     |           43889.51|
+|BLDG_DESC_Split Entry & Bonus Upper |           52452.60|
+|BLDG_DESC_Split Entry               |          104547.58|
+|BLDG_DESC_Split Level               |          118259.93|
+|BLDG_DESC_1 Storey & Bonus Upper    |          122782.79|
+|BLDG_DESC_Split Level & Crawl Space |          133926.64|
+|BLDG_DESC_1 Storey & Basement       |          136729.11|
 
 Looking at our coefficients table, our model found that a one sq foot increase in property size was associated with a \$284 increase in property assessment value. Features like the property having a garage or fireplace was associated with an increase in assessment value of \$20,637 and \$2186 respectively. Coefficients that indicate the property building type were found to have very large, and sometimes unintuitive coefficient sizes. Although our model assumes that one explanatory variable can change while keeping the others constant, the validity of this is a potential concern. 
 

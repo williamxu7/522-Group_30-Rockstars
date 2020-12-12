@@ -59,7 +59,7 @@ def main(in_file1,in_file2, out_file1, out_file2, out_file3):
     #Baseline DummyRegressor 
     dummy = DummyRegressor()
     dummy_scores = cross_validate(dummy, X_train, y_train, return_train_score=True, scoring = "r2")
-    store_scores = {"dummy_score": pd.DataFrame(dummy_scores).mean().tolist()}
+    store_scores = {"dummy_score": pd.DataFrame(dummy_scores).mean().round(4).tolist()}
     
     #Data transformation and preprocessor pipelines 
     categorical_transformer = make_pipeline(
@@ -85,17 +85,17 @@ def main(in_file1,in_file2, out_file1, out_file2, out_file3):
     alphas = 10.0**np.arange(-5,5,1)
     ridgecv = make_pipeline(preprocessor, RidgeCV(alphas=alphas))
     ridgecv_scores = cross_validate(ridgecv, X_train, y_train, cv=10, return_train_score=True, scoring = "r2")
-    store_scores["ridgecv_score"] =  pd.DataFrame(ridgecv_scores).mean().tolist()
+    store_scores["ridgecv_score"] =  pd.DataFrame(ridgecv_scores).mean().round(4).tolist()
     
     #RandomForestRegressor() with max_depth = , n_estimators = 70, and random_state= 123
     random_forest_regression = make_pipeline(preprocessor, RandomForestRegressor(max_depth = 5, n_estimators= 70, random_state=123))
     random_forest_scores = cross_validate(random_forest_regression, X_train, y_train, cv=5, return_train_score=True, scoring= 'r2', n_jobs=-1)
-    store_scores["random_forest"] = pd.DataFrame(random_forest_scores).mean().tolist()
+    store_scores["random_forest"] = pd.DataFrame(random_forest_scores).mean().round(4).tolist()
     
     #XGBRegressor() with max_depth = , n_estimators = 70, and random_state= 123
     xgb_regression = make_pipeline(preprocessor, XGBRegressor(max_depth = 5, n_estimators= 70, random_state=123))
     xgb_scores = cross_validate(xgb_regression, X_train, y_train, cv=5, return_train_score=True, scoring= 'r2', n_jobs=-1)
-    store_scores["XGB_Regression"] = pd.DataFrame(xgb_scores).mean().tolist()
+    store_scores["XGB_Regression"] = pd.DataFrame(xgb_scores).mean().round(4).tolist()
 
     #table for cross_validation scores 
     scores_df = pd.DataFrame(store_scores, index = dummy_scores.keys())
@@ -115,7 +115,7 @@ def main(in_file1,in_file2, out_file1, out_file2, out_file3):
     features = ohe_columns + binary_columns + numerical_features
     
     #Weights of coefficients
-    weights = ridgecv.named_steps['ridgecv'].coef_.flatten()
+    weights = ridgecv.named_steps['ridgecv'].coef_.round(2).flatten()
     inds = np.argsort(ridgecv.named_steps['ridgecv'].coef_.flatten())
     feature_table = {"feature": [features[index] for index in inds[:]], "coefficient": [weights[index] for index in inds[:]]}
     feature_table = pd.DataFrame(feature_table)
